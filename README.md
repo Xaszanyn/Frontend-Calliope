@@ -1,3 +1,9 @@
+# Uzaktan Çalıştırmak İçin Komutlar
+### Kök dizininden "npm install" ile modülleri indirilir.
+### "npm run" ile 3000 portundan tarayıcı ile açılır.
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
