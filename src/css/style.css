@@ -12,7 +12,7 @@
   --secondary: #8e44ad;
 
   --quizHover: rgba(156, 89, 182, 0.5);
-  --quizSelect: #2c3e50;
+  --quizSelect: #8e44ad;
   --quizNextDisabled: rgba(46, 204, 112, 0.5);
   --quizNext: #2ecc71;
 
@@ -198,6 +198,7 @@ h4 {
   border-radius: 1rem;
   display: flex;
   align-items: center;
+  transition: width var(--fast);
 }
 
 #progress h5 {
@@ -211,7 +212,7 @@ h4 {
   margin-left: 1rem;
 }
 
-#quiz {
+#question {
   margin: 0.75rem 0;
   font-size: 1.2rem;
 }
@@ -219,16 +220,22 @@ h4 {
 #answers {
   list-style: upper-alpha;
   list-style-position: inside;
+  min-height: 12rem;
 }
 
 #answers li {
   font-size: 1.2rem;
   padding: 0.5rem;
-  transition: background-color var(--fast);
+  transition: background-color var(--fast), color var(--fast);
+  cursor: pointer;
 }
 
 #answers li:hover {
   background-color: var(--quizHover);
+}
+
+#answers li:active {
+  background-color: var(--quizSelect);
 }
 
 #next {
@@ -241,6 +248,7 @@ h4 {
   background-color: var(--quizNext);
   color: var(--white);
   padding: 0.5rem 1rem;
+  transition: background-color var(--fast);
 }
 
 #next a.disabled {
@@ -302,6 +310,19 @@ textarea {
   background-color: var(--quizNext);
   color: var(--white);
   padding: 0.5rem 1.5rem;
+}
+
+#quiz {
+  transition: opacity var(--fast);
+}
+
+.fade {
+  opacity: 0;
+}
+
+.selected {
+  background-color: var(--quizSelect) !important;
+  color: var(--white);
 }
 
 /* ================================================== Footer */

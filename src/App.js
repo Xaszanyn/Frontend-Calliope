@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import "./css/style.css";
 
@@ -11,6 +11,47 @@ import Forum from "./components/Forum";
 import Footer from "./components/Footer";
 
 function App() {
+  if (!localStorage.progress) localStorage.progress = 0;
+
+  const [progress, setProgress] = useState(localStorage.progress);
+
+  const [quiz, setQuiz] = useState({
+    question: "This is a simple question. Which one is true?",
+    answers: ["Marmaris", "İzmir", "Ankara", "İstanbul"],
+    correctAnswer: 0,
+  });
+
+  const [answer, setAnswer] = useState();
+
+  useEffect(() => {
+    // SORU CEVAPLANDIĞINDA ALERTLENECEK
+    if (answer) {
+      setQuiz({
+        question: "Is this the second question?",
+        answers: ["Yes", "No"],
+        correctAnswer: 0,
+      });
+    }
+  }, [answer]);
+
+  ////////////////////////////////////////////////////////////////// DEBUG ZONE
+  useEffect(() => {
+    document.addEventListener("keypress", function (event) {
+      switch (event.key) {
+        case "1":
+          setProgress((progress) => progress + 10);
+          break;
+        case "2":
+          setQuiz({
+            question: "Is this the second question?",
+            answers: ["Yes", "No"],
+            correctAnswer: 0,
+          });
+      }
+    });
+  }, []);
+  ////////////////////////////////////////////////////////////////// DEBUG ZONE
+
   return (
     <main>
       <section id="page">
@@ -19,10 +60,10 @@ function App() {
           <section id="content">
             <LessonVideo />
             <LessonText />
-            <Quiz />
+            <Quiz quiz={quiz} setAnswer={setAnswer} />
           </section>
           <aside>
-            <Progress />
+            <Progress progress={progress} />
           </aside>
         </section>
         <section id="forum">
