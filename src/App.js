@@ -8,6 +8,8 @@ import LessonText from "./components/LessonText";
 import Quiz from "./components/Quiz";
 import Progress from "./components/Progress";
 import Forum from "./components/Forum";
+import Feynman from "./components/Feynman";
+import Profile from "./components/Profile";
 import Footer from "./components/Footer";
 
 export default function App() {
@@ -103,12 +105,16 @@ export default function App() {
           <section id="forum">
             <Forum />
           </section>
+          <section id="feynman">
+            <Feynman />
+          </section>
         </section>
-        <section id="profilePage">PROFİLE KISMI AMK</section>
+        <section id="profilePage">
+          <Profile />
+        </section>
       </section>
       <Footer />
 
-      <script src="./js/script.js" />
       <div id="loading">
         <div class="lds-dual-ring"></div>
       </div>

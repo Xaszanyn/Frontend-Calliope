@@ -5,6 +5,11 @@
   src: url("../fonts/Lemon\ Milk\ Light.otf");
 }
 
+@font-face {
+  font-family: "Lil Johnny";
+  src: url("../fonts/Lil\ Johnny.otf");
+}
+
 /* ================================================== General */
 
 :root {
@@ -70,7 +75,7 @@ nav {
 }
 
 h1 {
-  font-family: "Lemon Milk";
+  font-family: "Lil Johnny";
   font-size: 3rem;
   transition: font-size var(--fast);
 }
@@ -126,7 +131,8 @@ aside {
   border-radius: 1rem;
 }
 
-#forum {
+#forum,
+#feynman {
   padding: 4rem;
   padding-top: 0;
 }
@@ -394,4 +400,141 @@ footer span {
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* ================================================== Screen */
+
+#screen {
+  background-color: var(--black);
+  border-radius: 1rem;
+  height: 40rem;
+  padding: 4rem;
+  display: flex;
+  filter: blur(10px);
+}
+
+#rightScreen {
+  margin-left: auto;
+}
+
+#rightScreen img {
+  border-radius: 1rem;
+}
+
+#screen ul {
+  display: flex;
+  flex-direction: column;
+}
+
+#screen h3 {
+  color: var(--white);
+}
+
+#screen li {
+  background-color: var(--quizNext);
+  padding: 0.5rem 0.5rem 0.5rem 2rem;
+  font-size: 1.5rem;
+  width: 60rem;
+  height: 4rem;
+  margin: 0.5rem;
+  border-radius: 1rem;
+  color: var(--black);
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+}
+
+#screen li span:nth-child(2) {
+  margin-left: auto;
+  background-color: var(--white);
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+}
+
+#modalScreen {
+  position: absolute;
+  top: 15rem;
+  left: 45rem;
+  width: 30rem;
+  height: 20rem;
+  background-color: var(--black);
+  color: var(--white);
+  border-radius: 1rem;
+  font-size: 2.5rem;
+  padding: 1rem 2rem;
+  border: 4px solid var(--secondary);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#modalScreen button {
+  background-color: var(--secondary);
+  color: var(--white);
+  border: none;
+  display: block;
+  outline: none;
+  padding: 1rem;
+  font-size: 1.4rem;
+  font-weight: bold;
+  border-radius: 1rem;
+  margin: 1rem 0;
+}
+
+/* ================================================== Profile */
+
+#profilePage {
+  padding: 4rem;
+}
+
+.flex {
+  display: flex;
+}
+
+#profileLeft {
+  width: 50%;
+  height: 20rem;
+  display: flex;
+  justify-content: center;
+}
+
+#profileLeft img {
+  margin-left: 25rem;
+  border-radius: 50%;
+  height: 15rem;
+  width: 15rem;
+}
+
+#profileRight {
+  width: 50%;
+}
+
+#profileRight h4 {
+  font-size: 4rem;
+  margin-bottom: 0;
+}
+#profileRight h5 {
+  font-size: 1.5rem;
+}
+
+.displaying {
+  display: block;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+#completed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#completed li {
+  background-color: var(--secondary);
+  margin: 0.5rem 0;
+  padding: 2rem;
+  font-size: 1.75rem;
+  color: var(--white);
+  border-radius: 1rem;
+  min-width: 70rem;
 }

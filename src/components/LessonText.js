@@ -10,7 +10,7 @@ export default function LessonText() {
         purus, eu suscipit leo ullamcorper ac. Duis iaculis ligula sed felis
         fringilla sollicitudin. Ut et ex suscipit, pellentesque nibh sit amet,
         dapibus ligula. Vestibulum elit quam, mollis eget lectus non, sodales
-        fermentum metus. Maecenas consequat maximus leo. Pellentesque
+        fermentum metus. Maecenas consequa t maximus leo. Pellentesque
         pellentesque justo ac tincidunt egestas. Curabitur non vulputate ante.
         Nulla ex purus, pretium dignissim aliquam at, vehicula non turpis.
         Nullam sit amet odio viverra, fringilla quam id, eleifend turpis. Cras
