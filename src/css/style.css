@@ -259,6 +259,13 @@ h4 {
 #threads li {
   display: flex;
   margin: 4rem 0;
+  transition: height var(--fast);
+  height: 6rem;
+  overflow: hidden;
+}
+
+.squished {
+  height: 0 !important;
 }
 
 .threadLeft {

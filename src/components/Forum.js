@@ -1,4 +1,44 @@
+import { useEffect } from "react";
+
 export default function Forum() {
+  useEffect(() => {
+    document.querySelector("#send a").addEventListener("click", (event) => {
+      event.preventDefault();
+
+      if (document.querySelector("textarea").value == "") return;
+
+      let li = document.createElement("li");
+      li.classList.add("squished");
+      let img = document.createElement("img");
+      img.src = "https://randomuser.me/api/portraits/men/54.jpg";
+      img.classList.add("threadLeft");
+      let right = document.createElement("div");
+      right.classList.add("threadRight");
+      let h6 = document.createElement("h6");
+      h6.innerHTML = "Ekin Aslan ";
+      let span = document.createElement("span");
+      let today = new Date();
+      span.innerHTML =
+        String(today.getDate()).padStart(2, "0") +
+        "/" +
+        String(today.getMonth() + 1).padStart(2, "0") +
+        "/" +
+        today.getFullYear();
+      h6.append(span);
+      right.append(h6);
+      let p = document.createElement("p");
+      p.innerHTML = document.querySelector("textarea").value;
+      document.querySelector("textarea").value = "";
+      right.append(p);
+      li.append(img);
+      li.append(right);
+
+      document.querySelector("#threads").append(li);
+      setTimeout(() => {
+        li.classList.remove("squished");
+      }, 1000);
+    });
+  }, []);
   return (
     <section className="content">
       <h4>Forum Heading</h4>
