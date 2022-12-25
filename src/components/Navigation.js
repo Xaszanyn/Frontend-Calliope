@@ -1,5 +1,7 @@
+import { useEffect } from "react";
+
 export default function Navigation(props) {
-  setTimeout(() => {
+  useEffect(() => {
     document.querySelector("#storyboard").addEventListener("click", (event) => {
       event.preventDefault();
 
@@ -10,7 +12,7 @@ export default function Navigation(props) {
 
       props.setPage(false);
     });
-  }, 100);
+  }, []);
 
   return (
     <nav>

@@ -12,8 +12,26 @@ import Feynman from "./components/Feynman";
 import Profile from "./components/Profile";
 import Footer from "./components/Footer";
 
+import {
+  getContents,
+  getLessons,
+  getCategories,
+  getQuizzes,
+  getQuestions,
+} from "./util/Request";
+
 export default function App() {
   if (!localStorage.progress) localStorage.progress = 0;
+
+  if (!localStorage.complete) localStorage.complete = "000";
+
+  const [data, setData] = useState({});
+
+  const [questionNo, setQuestionNo] = useState(0);
+
+  const [rightAnswer, setRightAnswer] = useState(-1);
+
+  const [allRightAnswers, setAllRightAnswers] = useState(0);
 
   const [page, setPage] = useState(true);
 
@@ -25,7 +43,9 @@ export default function App() {
     correctAnswer: 0,
   });
 
-  const [answer, setAnswer] = useState();
+  const [complete, setComplete] = useState(localStorage.complete);
+
+  const [answer, setAnswer] = useState(-1);
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -39,16 +59,139 @@ export default function App() {
     });
   }, []);
 
+  useEffect(async function () {
+    let completion = localStorage.complete;
+
+    let d = await getData();
+
+    let lesson = d.lessons[parseInt(completion[0])];
+    let content = d.contents[parseInt(completion[0])];
+    let quiz = d.quizzes[parseInt(completion[0])];
+
+    console.log(d);
+
+    let questions = await getQuestions(quiz.title);
+
+    let answerTexts = [];
+    questions[questionNo].answer.forEach((ans, i) => {
+      answerTexts.push(ans.answer_text);
+
+      if (ans.is_right) {
+        setRightAnswer(-1);
+        setRightAnswer(i);
+        console.log("RIGHT IS " + i);
+      }
+    });
+
+    document.querySelector("#lessonVideo h3").innerHTML =
+      lesson.lesson_title +
+      `<span class="difficulty ${assignDifficult(
+        lesson.difficulty
+      ).toLowerCase()}">${assignDifficult(lesson.difficulty)}</span>`;
+
+    document.querySelector("#progress h5").innerHTML = lesson.lesson_title;
+
+    document.querySelector("#quizSection h4").innerHTML = quiz.title;
+
+    setQuiz({
+      question: questions[questionNo].question_text,
+      answers: answerTexts,
+      correctAnswer: rightAnswer,
+    });
+
+    let v;
+    if (completion[0] == "0") {
+      v = "YUlNbVLJTJo";
+    } else {
+      v = "AVYfyTvc9KY";
+    }
+
+    document.querySelector("#frame").innerHTML = `<iframe
+        src="https://www.youtube.com/embed/${v}?controls=0"
+        title="Lesson"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>`;
+
+    document.querySelector("#lessonText").innerHTML =
+      content.content_text.replaceAll("\n", "<br>");
+  }, []);
+
+  function assignDifficult(difficulty) {
+    switch (difficulty) {
+      case 1:
+        return "Beginner";
+      case 2:
+        return "Intermediate";
+      case 3:
+        return "Advance";
+    }
+  }
+
   useEffect(() => {
-    // SORU CEVAPLANDIĞINDA ALERTLENECEK
-    if (answer) {
-      setQuiz({
-        question: "Is this the second question?",
-        answers: ["Yes", "No"],
-        correctAnswer: 0,
-      });
+    if (answer != -1) {
+      if (answer == rightAnswer) {
+        setAllRightAnswers((a) => a + 1);
+      }
+      setAnswer(-1);
+      setQuestionNo((q) => q + 1);
     }
   }, [answer]);
+
+  useEffect(() => {
+    if (questionNo == 0) return;
+
+    let quiz = data.quizzes[parseInt(localStorage.complete[0])];
+
+    if (quiz.questions.length == questionNo) {
+      if (allRightAnswers >= 4) {
+        if (complete == "000") {
+          setComplete("100");
+          setProgress(50);
+          localStorage.progress = 50;
+          localStorage.complete = "100";
+        } else if (complete == "100") {
+          setComplete("000");
+          setProgress(100);
+          localStorage.progress = 100;
+          localStorage.complete = "000";
+        }
+
+        document.querySelector("#result").innerHTML = `Congrats! You did it.
+        <br /> <br />
+        <a href="">GO</a>`;
+        document.querySelector("#result").style.display = "block";
+      } else {
+        document.querySelector("#result").innerHTML = `Failed, try again.
+        <br /> <br />
+        <a href="">GO</a>`;
+        document.querySelector("#result").style.display = "block";
+      }
+
+      //FINAL
+      return;
+    }
+
+    let answerTexts = [];
+    quiz.questions[questionNo].answer.forEach((ans, i) => {
+      answerTexts.push(ans.answer_text);
+
+      if (ans.is_right) {
+        setRightAnswer(-1);
+        setRightAnswer(i);
+        console.log("ANS IS " + i);
+      }
+    });
+
+    document.querySelector("#quizSection h4").innerHTML = quiz.title;
+
+    setQuiz({
+      question: quiz.questions[questionNo].question_text,
+      answers: answerTexts,
+      correctAnswer: rightAnswer,
+    });
+  }, [questionNo]);
 
   useEffect(() => {
     document.querySelector("#loading").style.display = "flex";
@@ -69,19 +212,32 @@ export default function App() {
     }, 800);
   }, [page]);
 
+  async function getData() {
+    let c = {};
+    c.lessons = await getLessons();
+    c.categories = await getCategories();
+    c.quizzes = await getQuizzes();
+    c.contents = await getContents();
+
+    c.quizzes.forEach(async function (quiz, i) {
+      c.quizzes[i].questions = await getQuestions(
+        c.quizzes[i].title.replaceAll(" ", "%20")
+      );
+    });
+
+    setData(c);
+
+    console.log(c);
+
+    return c;
+  }
+
   ////////////////////////////////////////////////////////////////// DEBUG ZONE
   useEffect(() => {
     document.addEventListener("keypress", function (event) {
       switch (event.key) {
         case "1":
-          setProgress((progress) => progress + 10);
           break;
-        case "2":
-          setQuiz({
-            question: "Is this the second question?",
-            answers: ["Yes", "No"],
-            correctAnswer: 0,
-          });
       }
     });
   }, []);

@@ -41,7 +41,7 @@ export default function Forum() {
   }, []);
   return (
     <section className="content">
-      <h4>Forum Heading</h4>
+      <h4>Forum</h4>
       <section>
         <textarea rows={3}></textarea>
         <br />
@@ -57,7 +57,7 @@ export default function Forum() {
           ></img>
           <div className="threadRight">
             <h6>
-              Profile Name <span>25/12/2022</span>
+              Warren Carr <span>25/12/2022</span>
             </h6>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -80,7 +80,7 @@ export default function Forum() {
           ></img>
           <div className="threadRight">
             <h6>
-              Profile Name <span>25/12/2022</span>
+              Louise Scott <span>25/12/2022</span>
             </h6>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting

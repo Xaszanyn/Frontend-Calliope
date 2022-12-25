@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Quiz(props) {
-  var questionAnswer;
+  const [questionAnswer, setQuestionAnswer] = useState(-1);
+  const [answering, setAnswering] = useState(false);
 
   function setAnswers() {
+    console.log("answers Setting..");
     document.querySelectorAll("#answers li").forEach((answer, i) => {
       answer.addEventListener("click", () => {
-        questionAnswer = i;
+        setQuestionAnswer(i);
         document.querySelector("#next a").classList.remove("disabled");
 
         document.querySelectorAll("#answers li").forEach((otherAnswer, j) => {
@@ -21,10 +23,16 @@ export default function Quiz(props) {
   useEffect(() => {
     document.querySelector("#next a").addEventListener("click", (event) => {
       event.preventDefault();
-
-      props.setAnswer(questionAnswer);
+      if (event.target.className == "disabled") return;
+      setAnswering((a) => !a);
     });
   }, []);
+
+  useEffect(() => {
+    if (questionAnswer != -1) {
+      props.setAnswer(questionAnswer);
+    }
+  }, [answering]);
 
   useEffect(() => {
     document.querySelector("#quiz").classList.add("fade");
@@ -45,7 +53,11 @@ export default function Quiz(props) {
   }, [props.quiz]);
 
   return (
-    <section className="content">
+    <section
+      id="quizSection"
+      className="content"
+      style={{ position: "relative" }}
+    >
       <h4>Quiz Heading</h4>
       <section className="fade" id="quiz">
         <section id="question">
@@ -62,6 +74,11 @@ export default function Quiz(props) {
         <a className="disabled" href="#">
           Next Question
         </a>
+      </div>
+      <div id="result" style={{ display: "none" }}>
+        Congrats! You did it.
+        <br /> <br />
+        <a href="">GO</a>
       </div>
     </section>
   );

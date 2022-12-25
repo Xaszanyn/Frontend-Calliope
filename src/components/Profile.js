@@ -28,7 +28,7 @@ export default function Profile() {
         </h5>
         <ul id="completed">
           <li>English Native Speaking (Bundle)</li>
-          <li>Complete English Bussienss Terms</li>
+          <li>Complete English Business Terms</li>
           <li>Learning With Accents</li>
         </ul>
       </div>

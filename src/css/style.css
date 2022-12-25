@@ -16,6 +16,10 @@
   --primary: #febf5e;
   --secondary: #8e44ad;
 
+  --easy: #2ecc71;
+  --medium: #febf5e;
+  --hard: #e84118;
+
   --quizHover: rgba(156, 89, 182, 0.5);
   --quizSelect: #8e44ad;
   --quizNextDisabled: rgba(46, 204, 112, 0.5);
@@ -146,8 +150,13 @@ h3 {
 
 iframe {
   width: 100%;
-  min-height: 30vw;
   border-radius: 1rem;
+  min-height: 30vw;
+}
+
+#frame {
+  width: 100%;
+  min-height: 30vw;
 }
 
 h4 {
@@ -537,4 +546,47 @@ footer span {
   color: var(--white);
   border-radius: 1rem;
   min-width: 70rem;
+}
+
+#lessonVideo h3 {
+  display: flex;
+}
+
+.difficulty {
+  margin-left: auto;
+  background-clip: var();
+  padding: 0 1.5rem;
+  border-radius: 1rem;
+}
+
+.beginner {
+  background-color: var(--easy);
+}
+
+.intermediate {
+  background-color: var(--medium);
+}
+
+.advance {
+  background-color: var(--hard);
+}
+
+#result {
+  background-color: var(--secondary);
+  position: absolute;
+  top: 7rem;
+  left: 35rem;
+  height: 10rem;
+  width: 20rem;
+  border-radius: 1rem;
+  padding: 1rem;
+  color: var(--white);
+  font-size: 1.4rem;
+  border: 4px solid var(--black);
+}
+
+#result a {
+  background-color: var(--black);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
 }
