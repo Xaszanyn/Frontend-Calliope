@@ -10,10 +10,12 @@ import Progress from "./components/Progress";
 import Forum from "./components/Forum";
 import Footer from "./components/Footer";
 
-function App() {
+export default function App() {
   if (!localStorage.progress) localStorage.progress = 0;
 
-  const [progress, setProgress] = useState(localStorage.progress);
+  const [page, setPage] = useState(true);
+
+  const [progress, setProgress] = useState(parseInt(localStorage.progress));
 
   const [quiz, setQuiz] = useState({
     question: "This is a simple question. Which one is true?",
@@ -22,6 +24,18 @@ function App() {
   });
 
   const [answer, setAnswer] = useState();
+
+  useEffect(() => {
+    window.addEventListener("scroll", function () {
+      if (window.scrollY == 0) {
+        document.querySelector("nav").classList.remove("smallNav");
+        document.querySelector("h1").classList.remove("smallLogo");
+      } else {
+        document.querySelector("nav").classList.add("smallNav");
+        document.querySelector("h1").classList.add("smallLogo");
+      }
+    });
+  }, []);
 
   useEffect(() => {
     // SORU CEVAPLANDIĞINDA ALERTLENECEK
@@ -33,6 +47,25 @@ function App() {
       });
     }
   }, [answer]);
+
+  useEffect(() => {
+    document.querySelector("#loading").style.display = "flex";
+    setTimeout(() => {
+      document.querySelector("#loading").classList.add("loaded");
+
+      if (page) {
+        document.querySelector("#storyboardPage").style.display = "block";
+        document.querySelector("#profilePage").style.display = "none";
+      } else {
+        document.querySelector("#storyboardPage").style.display = "none";
+        document.querySelector("#profilePage").style.display = "block";
+      }
+    }, 500);
+    setTimeout(() => {
+      document.querySelector("#loading").style.display = "none";
+      document.querySelector("#loading").classList.remove("loaded");
+    }, 800);
+  }, [page]);
 
   ////////////////////////////////////////////////////////////////// DEBUG ZONE
   useEffect(() => {
@@ -55,26 +88,30 @@ function App() {
   return (
     <main>
       <section id="page">
-        <Navigation />
-        <section id="main">
-          <section id="content">
-            <LessonVideo />
-            <LessonText />
-            <Quiz quiz={quiz} setAnswer={setAnswer} />
+        <Navigation setPage={setPage} />
+        <section id="storyboardPage">
+          <section id="main">
+            <section id="content">
+              <LessonVideo />
+              <LessonText />
+              <Quiz quiz={quiz} setAnswer={setAnswer} />
+            </section>
+            <aside>
+              <Progress progress={progress} />
+            </aside>
           </section>
-          <aside>
-            <Progress progress={progress} />
-          </aside>
+          <section id="forum">
+            <Forum />
+          </section>
         </section>
-        <section id="forum">
-          <Forum />
-        </section>
+        <section id="profilePage">PROFİLE KISMI AMK</section>
       </section>
       <Footer />
 
       <script src="./js/script.js" />
+      <div id="loading">
+        <div class="lds-dual-ring"></div>
+      </div>
     </main>
   );
 }
-
-export default App;

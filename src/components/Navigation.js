@@ -1,4 +1,17 @@
-export default function Navigation() {
+export default function Navigation(props) {
+  setTimeout(() => {
+    document.querySelector("#storyboard").addEventListener("click", (event) => {
+      event.preventDefault();
+
+      props.setPage(true);
+    });
+    document.querySelector("#profile").addEventListener("click", (event) => {
+      event.preventDefault();
+
+      props.setPage(false);
+    });
+  }, 100);
+
   return (
     <nav>
       <h1>Calliope</h1>
@@ -7,10 +20,14 @@ export default function Navigation() {
           <a href="#">Home</a>
         </li>
         <li>
-          <a href="#">Storyboard</a>
+          <a id="storyboard" href="#">
+            Storyboard
+          </a>
         </li>
         <li>
-          <a href="#">Profile</a>
+          <a id="profile" href="#">
+            Profile
+          </a>
         </li>
         <li>
           <a href="#">Sign Out</a>
