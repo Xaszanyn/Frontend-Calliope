@@ -32,7 +32,6 @@ function App() {
       <Footer />
 
       <script src="./js/script.js" />
-      <script>alert("AAAAAOOO")</script>
     </main>
   );
 }

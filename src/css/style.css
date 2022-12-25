@@ -11,7 +11,12 @@
   --primary: #febf5e;
   --secondary: #8e44ad;
 
-  --gray: #f1f1f1;
+  --quizHover: rgba(156, 89, 182, 0.5);
+  --quizSelect: #2c3e50;
+  --quizNextDisabled: rgba(46, 204, 112, 0.5);
+  --quizNext: #2ecc71;
+
+  --gray: #ecf0f1;
   --white: #fafafa;
   --black: #202225;
 
@@ -71,7 +76,7 @@ h1 {
 
 nav ul {
   margin-left: auto;
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: bold;
   display: flex;
 }
@@ -176,6 +181,127 @@ h4 {
   font-style: normal;
   color: var(--secondary);
   content: "➤ ";
+}
+
+#progressBar {
+  margin: 0.5rem 0;
+  width: 100%;
+  height: 2rem;
+  background-color: var(--black);
+  border-radius: 1rem;
+}
+
+#progressBarInner {
+  width: 50%;
+  height: 100%;
+  background-color: var(--secondary);
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+#progress h5 {
+  font-size: 1.5rem;
+  font-weight: normal;
+  margin: 0.5rem 0;
+}
+
+#progressBarInner span {
+  color: var(--white);
+  margin-left: 1rem;
+}
+
+#quiz {
+  margin: 0.75rem 0;
+  font-size: 1.2rem;
+}
+
+#answers {
+  list-style: upper-alpha;
+  list-style-position: inside;
+}
+
+#answers li {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+  transition: background-color var(--fast);
+}
+
+#answers li:hover {
+  background-color: var(--quizHover);
+}
+
+#next {
+  display: flex;
+  margin-top: 0.75rem;
+}
+
+#next a {
+  margin-left: auto;
+  background-color: var(--quizNext);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+}
+
+#next a.disabled {
+  background-color: var(--quizNextDisabled);
+  cursor: not-allowed;
+}
+
+#threads li {
+  display: flex;
+  margin: 4rem 0;
+}
+
+.threadLeft {
+  width: 5rem;
+  height: 5rem;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.threadRight {
+  width: 100%;
+  padding-left: 1rem;
+}
+
+.threadRight h6 {
+  font-size: 1.6rem;
+  margin-top: -0.5rem;
+  font-weight: lighter;
+}
+
+.threadRight h6 span {
+  padding-left: 0.5rem;
+  font-style: italic;
+  font-size: 1rem;
+}
+
+.threadRight p {
+  font-size: 1.2rem;
+  font-weight: lighter;
+}
+
+textarea {
+  border: none;
+  outline: none;
+  border-radius: 1rem;
+  width: 100%;
+  font-family: "Kanit", sans-serif;
+  padding: 1rem;
+  resize: vertical;
+}
+
+#send {
+  display: flex;
+  margin-top: 0.75rem;
+}
+
+#send a {
+  margin-left: auto;
+  background-color: var(--quizNext);
+  color: var(--white);
+  padding: 0.5rem 1.5rem;
 }
 
 /* ================================================== Footer */
